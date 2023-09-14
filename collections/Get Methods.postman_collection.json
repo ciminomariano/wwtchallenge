@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "59de735e-dc59-4db1-bde5-750a84fb86db",
+		"name": "Get Methods",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5058637"
+	},
+	"item": [
+		{
+			"name": "Get Cars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cars by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cars/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

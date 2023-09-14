@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "2b7a91de-f80c-49a0-a29f-5fc507377381",
+		"name": "Put Methods",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5058637"
+	},
+	"item": [
+		{
+			"name": "Update Car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {        \n        \"make\": \"Toyota\",\n        \"model\": \"Yaris\",\n        \"package\": \"Standard\",\n        \"color\": \"Red\",\n        \"year\": 2021,\n        \"category\": \"Sedan\",\n        \"mileage\": 1500,\n        \"price\": 25000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cars/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

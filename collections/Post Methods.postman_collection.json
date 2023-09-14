@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "50a7901f-1505-49c8-bc98-14be0b7ac1ed",
+		"name": "Post Methods",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5058637"
+	},
+	"item": [
+		{
+			"name": "Add Car",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {        \n        \"make\": \"Toyota\",\n        \"model\": \"Camry\",\n        \"package\": \"Standard\",\n        \"color\": \"Blue\",\n        \"year\": 2021,\n        \"category\": \"Sedan\",\n        \"mileage\": 15000,\n        \"price\": 2500000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
