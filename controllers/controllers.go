@@ -3,18 +3,34 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 	"wwtchallenge/models"
 	"wwtchallenge/services"
 )
 
-// CreateCarHandler handles the creation of a new car
 func CreateCarHandler(w http.ResponseWriter, r *http.Request) {
-	var newCar models.Car
-
 	// Decode the JSON body of the request into a car structure
+	var newCar models.Car
 	err := json.NewDecoder(r.Body).Decode(&newCar)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Check if the car has all required fields
+	missingFields := services.IsValidCar(newCar)
+	if len(missingFields) > 0 {
+		errorMessage := "Missing required fields: " + strings.Join(missingFields, ", ")
+		errorResponse := map[string]string{"error": errorMessage}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(errorResponse)
+		return
+	}
+
+	// Check if the car is a duplicate
+	if services.IsCarDuplicate(newCar) {
+		http.Error(w, "Car already exists", http.StatusConflict)
 		return
 	}
 
@@ -56,6 +72,18 @@ func GetCarByIDHandler(w http.ResponseWriter, r *http.Request, id int) {
 }
 
 func UpdateCarHandler(w http.ResponseWriter, r *http.Request, id int, updatedCar models.Car) {
+
+	// Check if the car has all required fields
+	missingFields := services.IsValidCar(updatedCar)
+	if len(missingFields) > 0 {
+		errorMessage := "Missing required fields: " + strings.Join(missingFields, ", ")
+		errorResponse := map[string]string{"error": errorMessage}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(errorResponse)
+		return
+	}
+
 	// Llamar a la función de servicio para actualizar el coche
 	updated := services.UpdateCar(id, updatedCar)
 	if !updated {

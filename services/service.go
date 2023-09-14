@@ -31,6 +31,48 @@ func CreateCar(car models.Car) models.Car {
 	return car
 }
 
+// IsValidCar verifica si un automóvil tiene todos los campos requeridos y devuelve una lista de campos faltantes
+func IsValidCar(car models.Car) []string {
+	var missingFields []string
+
+	if car.Make == "" {
+		missingFields = append(missingFields, "make")
+	}
+	if car.Model == "" {
+		missingFields = append(missingFields, "model")
+	}
+	if car.Package == "" {
+		missingFields = append(missingFields, "package")
+	}
+	if car.Color == "" {
+		missingFields = append(missingFields, "color")
+	}
+	if car.Category == "" {
+		missingFields = append(missingFields, "category")
+	}
+	if car.Year == 0 {
+		missingFields = append(missingFields, "year")
+	}
+	if car.Mileage < 0 {
+		missingFields = append(missingFields, "mileage")
+	}
+	if car.Price <= 0 {
+		missingFields = append(missingFields, "price")
+	}
+
+	return missingFields
+}
+
+// IsCarDuplicate verifica si ya existe un automóvil con los mismos detalles (marca, modelo y año)
+func IsCarDuplicate(newCar models.Car) bool {
+	for _, car := range models.Cars {
+		if car.Make == newCar.Make && car.Model == newCar.Model && car.Year == newCar.Year {
+			return true
+		}
+	}
+	return false
+}
+
 // GetCarList returns the list of cars
 func GetCarList() []models.Car {
 	// Return the list of cars stored in the models package

@@ -4,13 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"wwtchallenge/message"
 	"wwtchallenge/routers"
 	// Importa las rutas desde el mismo directorio
 )
 
 func main() {
-	message.PublicFuntion()
 
 	r := routers.SetupRoutes() // Llama a la función SetupRoutes desde el paquete routes
 	port := 8080
