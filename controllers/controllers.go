@@ -84,10 +84,10 @@ func UpdateCarHandler(w http.ResponseWriter, r *http.Request, id int, updatedCar
 		return
 	}
 
-	// Llamar a la función de servicio para actualizar el coche
+	// Call to the service to update the car
 	updated := services.UpdateCar(id, updatedCar)
 	if !updated {
-		// Coche no encontrado, devolver una respuesta 404
+		// Check if the car was not found and send a message
 		errorResponse := map[string]string{"error": "Car not found"}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusNotFound)
@@ -95,7 +95,7 @@ func UpdateCarHandler(w http.ResponseWriter, r *http.Request, id int, updatedCar
 		return
 	}
 
-	// Devolver una respuesta exitosa con un mensaje
+	// if the car was found send a message to the client
 	response := map[string]string{"message": "Car updated successfully"}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

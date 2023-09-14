@@ -2,7 +2,7 @@
 
 package models
 
-// Car representa la estructura de datos de un coche
+// Car Model
 type Car struct {
 	ID       int    `json:"id"`
 	Make     string `json:"make"`
@@ -16,8 +16,7 @@ type Car struct {
 }
 
 var Cars = []Car{
-	// Aquí puedes inicializar tu lista de coches
-	// Por ejemplo:
+	// Initial data that is loaded in memory when the server starts
 	{ID: 1, Make: "Toyota", Model: "Camry", Package: "Standard", Color: "Blue", Year: 2020, Category: "Sedan", Mileage: 15000, Price: 2500000},
 	{ID: 2, Make: "Honda", Model: "Civic", Package: "EX", Color: "Red", Year: 2019, Category: "Sedan", Mileage: 12000, Price: 2200000},
 }

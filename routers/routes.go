@@ -13,7 +13,7 @@ import (
 func SetupRoutes() *mux.Router {
 	r := mux.NewRouter()
 
-	// Ruta para obtener la lista de coches (GET) y crear un nuevo coche (POST)
+	// Route to obtain the list of cars and to create a new one
 	r.HandleFunc("/cars", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:

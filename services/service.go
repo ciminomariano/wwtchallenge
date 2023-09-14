@@ -31,7 +31,7 @@ func CreateCar(car models.Car) models.Car {
 	return car
 }
 
-// IsValidCar verifica si un automóvil tiene todos los campos requeridos y devuelve una lista de campos faltantes
+// IsValidCar verifies fields and return missing fields to the controller
 func IsValidCar(car models.Car) []string {
 	var missingFields []string
 
@@ -63,7 +63,7 @@ func IsValidCar(car models.Car) []string {
 	return missingFields
 }
 
-// IsCarDuplicate verifica si ya existe un automóvil con los mismos detalles (marca, modelo y año)
+// IsCarDuplicate verifies if the car exists
 func IsCarDuplicate(newCar models.Car) bool {
 	for _, car := range models.Cars {
 		if car.Make == newCar.Make && car.Model == newCar.Model && car.Year == newCar.Year {
@@ -79,7 +79,7 @@ func GetCarList() []models.Car {
 	return models.Cars
 }
 
-// GetCarByID obtiene un coche por su ID
+// GetCarByID gets a car by ID
 func GetCarByID(carID int) *models.Car {
 	for _, car := range models.Cars {
 		if car.ID == carID {
@@ -89,9 +89,9 @@ func GetCarByID(carID int) *models.Car {
 	return nil
 }
 
-// UpdateCar actualiza un automóvil por su ID con los nuevos datos proporcionados.
+// UpdateCar update cars by id with new data from json
 func UpdateCar(id int, updatedCar models.Car) bool {
-	// Buscar el automóvil en la lista de automóviles por su ID
+	// See if the car is in the list
 	for i, car := range models.Cars {
 		if car.ID == id {
 			// Mantein the ID (Does not allow to the user change the id from json)
@@ -100,6 +100,6 @@ func UpdateCar(id int, updatedCar models.Car) bool {
 			return true
 		}
 	}
-	// Si no se encuentra el automóvil, devolver falso
+	// If the id is not in the list return false
 	return false
 }

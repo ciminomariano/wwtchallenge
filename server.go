@@ -5,16 +5,18 @@ import (
 	"log"
 	"net/http"
 	"wwtchallenge/routers"
-	// Importa las rutas desde el mismo directorio
 )
 
-func main() {
-
-	r := routers.SetupRoutes() // Llama a la función SetupRoutes desde el paquete routes
+func StartServer() {
+	r := routers.SetupRoutes()
 	port := 8080
 	fmt.Printf("Server listening on port %d...\n", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), r)
 	if err != nil {
 		log.Fatal("Server error:", err)
 	}
+}
+
+func main() {
+	StartServer()
 }
