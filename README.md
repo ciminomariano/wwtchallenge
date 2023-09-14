@@ -132,7 +132,12 @@ The Car Microservice is now running locally. You can interact with it using a to
     To create a new car, use a POST request to /cars with the car details in the request body.
     To update an existing car, use a PUT request to /cars/{id} with the updated car details in the request body.
 
-Make sure to replace {id} with the desired car's ID when using the endpoints.
+There is a module with Postman collections to test the API. 
+You can use to test the by downloading from here
+https://github.com/ciminomariano/wwtchallenge/tree/main/collections
+
+
+Make sure to replace id with the desired car's ID when using the endpoints.
 # Testing
 
 To run the automated tests, use the following command:
