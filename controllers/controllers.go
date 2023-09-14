@@ -11,25 +11,20 @@ import (
 func CreateCarHandler(w http.ResponseWriter, r *http.Request) {
 	var newCar models.Car
 
-	// Decode the JSON body of the request into a car structure
+	// Decodifica el cuerpo JSON de la solicitud en una estructura de coche
 	err := json.NewDecoder(r.Body).Decode(&newCar)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// Generate a new unique ID for the car, e.g., using a counter or a random number generator
-	// For simplicity, you can use a counter that increments with each new car created.
-	// Note: In a real-world application, you might want to use a more robust method to generate IDs.
-	//newCar.ID = generateUniqueCarID()
+	// Llama a la función de servicio para crear el coche y obtener el coche con el ID asignado
+	createdCar := services.CreateCar(newCar)
 
-	// Call the service function to create the car
-	services.CreateCar(newCar)
-
-	// Return the JSON response with the newly created car
+	// Devuelve la respuesta JSON con el coche recién creado
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(newCar)
+	json.NewEncoder(w).Encode(createdCar)
 }
 
 // GetCarListHandler handles the GET request to retrieve the list of cars

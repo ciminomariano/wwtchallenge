@@ -17,13 +17,18 @@ func init() {
 }
 
 // CreateCar creates a new car and adds it to the list of cars
-func CreateCar(car models.Car) {
+func CreateCar(car models.Car) models.Car {
+
+	// Generate a new unique ID for the car, e.g., using a counter or a random number generator
+	//newCar.ID = generateUniqueCarID()
 	// Increment the last car ID and assign it to the new car
 	lastCarID++
 	car.ID = lastCarID
 
 	// Add the new car to the list
 	models.Cars = append(models.Cars, car)
+
+	return car
 }
 
 // GetCarList returns the list of cars
