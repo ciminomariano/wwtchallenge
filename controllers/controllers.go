@@ -42,3 +42,22 @@ func GetCarListHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(carList)
 }
+
+// GetCarByIDHandler handles the GET request to retrieve a car by its ID
+
+// GetCarByIDHandler handles the GET request to retrieve a car by its ID
+func GetCarByIDHandler(w http.ResponseWriter, r *http.Request, id int) {
+	// Convert the ID to the appropriate data type (e.g., int) and use it to retrieve the car
+	car := services.GetCarByID(id)
+
+	if car == nil {
+		// Car not found, return a 404 response
+		http.Error(w, "Car not found", http.StatusNotFound)
+		return
+	}
+
+	// Return the car in JSON format
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(car)
+}

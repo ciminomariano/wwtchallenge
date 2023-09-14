@@ -31,3 +31,13 @@ func GetCarList() []models.Car {
 	// Return the list of cars stored in the models package
 	return models.Cars
 }
+
+// GetCarByID obtiene un coche por su ID
+func GetCarByID(carID int) *models.Car {
+	for _, car := range models.Cars {
+		if car.ID == carID {
+			return &car
+		}
+	}
+	return nil
+}
