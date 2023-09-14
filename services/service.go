@@ -46,3 +46,18 @@ func GetCarByID(carID int) *models.Car {
 	}
 	return nil
 }
+
+// UpdateCar actualiza un automóvil por su ID con los nuevos datos proporcionados.
+func UpdateCar(id int, updatedCar models.Car) bool {
+	// Buscar el automóvil en la lista de automóviles por su ID
+	for i, car := range models.Cars {
+		if car.ID == id {
+			// Mantein the ID (Does not allow to the user change the id from json)
+			updatedCar.ID = models.Cars[i].ID
+			models.Cars[i] = updatedCar
+			return true
+		}
+	}
+	// Si no se encuentra el automóvil, devolver falso
+	return false
+}

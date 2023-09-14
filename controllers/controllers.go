@@ -11,17 +11,17 @@ import (
 func CreateCarHandler(w http.ResponseWriter, r *http.Request) {
 	var newCar models.Car
 
-	// Decodifica el cuerpo JSON de la solicitud en una estructura de coche
+	// Decode the JSON body of the request into a car structure
 	err := json.NewDecoder(r.Body).Decode(&newCar)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// Llama a la función de servicio para crear el coche y obtener el coche con el ID asignado
+	// Call the service function to create the car and obtain the car with the assigned ID
 	createdCar := services.CreateCar(newCar)
 
-	// Devuelve la respuesta JSON con el coche recién creado
+	// Return the JSON response with the newly created car
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(createdCar)
@@ -39,8 +39,6 @@ func GetCarListHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetCarByIDHandler handles the GET request to retrieve a car by its ID
-
-// GetCarByIDHandler handles the GET request to retrieve a car by its ID
 func GetCarByIDHandler(w http.ResponseWriter, r *http.Request, id int) {
 	// Convert the ID to the appropriate data type (e.g., int) and use it to retrieve the car
 	car := services.GetCarByID(id)
@@ -55,4 +53,24 @@ func GetCarByIDHandler(w http.ResponseWriter, r *http.Request, id int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(car)
+}
+
+func UpdateCarHandler(w http.ResponseWriter, r *http.Request, id int, updatedCar models.Car) {
+	// Llamar a la función de servicio para actualizar el coche
+	updated := services.UpdateCar(id, updatedCar)
+	if !updated {
+		// Coche no encontrado, devolver una respuesta 404
+		errorResponse := map[string]string{"error": "Car not found"}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(errorResponse)
+		return
+	}
+
+	// Devolver una respuesta exitosa con un mensaje
+	response := map[string]string{"message": "Car updated successfully"}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
+
 }

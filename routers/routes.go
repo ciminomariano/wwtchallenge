@@ -1,9 +1,11 @@
 package routers
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 	"wwtchallenge/controllers"
+	"wwtchallenge/models"
 
 	"github.com/gorilla/mux"
 )
@@ -23,20 +25,32 @@ func SetupRoutes() *mux.Router {
 		}
 	})
 
+	// Route to get a car by its ID or update it by ID (GET and PUT)
 	r.HandleFunc("/cars/{id:[0-9]+}", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			vars := mux.Vars(r)
-			idStr := vars["id"]
-			id, err := strconv.Atoi(idStr)
+		vars := mux.Vars(r)
+		idStr := vars["id"]
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			http.Error(w, "Invalid ID", http.StatusBadRequest)
+			return
+		}
+
+		switch r.Method {
+		case http.MethodGet:
+			controllers.GetCarByIDHandler(w, r, id)
+		case http.MethodPut:
+			// Decode the JSON body of the request into a car structure
+			var updatedCar models.Car
+			err := json.NewDecoder(r.Body).Decode(&updatedCar)
 			if err != nil {
-				http.Error(w, "Invalid ID", http.StatusBadRequest)
+				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
 			}
-			controllers.GetCarByIDHandler(w, r, id)
-		} else {
+
+			controllers.UpdateCarHandler(w, r, id, updatedCar)
+		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
 	})
-
 	return r
 }
