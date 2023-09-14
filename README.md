@@ -1,25 +1,25 @@
-Car Microservice - Coding Challenge
+# Car Microservice - Coding Challenge
 
-This is a basic microservice implementation for getting and updating information about cars. It consists of a RESTful OpenAPI contract and a matching HTTP Go implementation.
-Endpoints
-1. GET /cars/{id}
+This project is a Go-based microservice that provides a basic set of functionalities for managing car data. It offers RESTful endpoints for retrieving and updating car information. Below, you will find details about the project's functionality, prerequisites, installation, and usage.
+# Functionality
 
-    Retrieves an existing car by its ID.
-    Example: /cars/1
+The Car Microservice exposes the following endpoints:
 
-2. GET /cars
+    GET /cars/{id}
+        Retrieves an existing car by its ID.
+        Example: /cars/1
 
-    Retrieves a list of all cars.
-    Example: /cars
+    GET /cars
+        Retrieves a list of all cars.
+        Example: /cars
 
-3. POST /cars
+    POST /cars
+        Creates a new car.
+        Example: /cars
 
-    Creates a new car.
-    Example: /cars
+    Request Body:
 
-Request Body:
-
-json
+    json
 
 {
     "make": "Toyota",
@@ -32,7 +32,7 @@ json
     "price": 2500000
 }
 
-4. PUT /cars/{id}
+PUT /cars/{id}
 
     Updates an existing car by its ID.
     Example: /cars/1
@@ -41,25 +41,69 @@ Request Body (example):
 
 json
 
-{
-    "make": "Toyota",
-    "model": "Camry",
-    "package": "Deluxe",
-    "color": "Red",
-    "year": 2020,
-    "category": "Sedan",
-    "mileage": 18000,
-    "price": 2800000
-}
+    {
+        "make": "Toyota",
+        "model": "Camry",
+        "package": "Deluxe",
+        "color": "Red",
+        "year": 2020,
+        "category": "Sedan",
+        "mileage": 18000,
+        "price": 2800000
+    }
 
-Implementation Details
+# Prerequisites
 
-    The implementation is done in Golang using standard libraries, including net/http.
-    It is assumed to be an internal API with no authentication or authorization requirements.
-    For persistence, in-memory storage is used, and car data is not persisted between application runs.
-    Logging is implemented for observability.
-    Automated testing of the endpoints is included.
+Before running the project, make sure you have the following prerequisites installed:
 
+    Go (Golang)
+
+# Installation
+
+    Clone the repository:
+
+    shell
+
+git clone https://github.com/ciminomariano/wwtchallenge.git
+
+Navigate to the project directory:
+
+shell
+
+cd your-repo
+
+Run the application:
+
+shell
+
+    go run main.go
+
+# Usage
+
+The Car Microservice is now running locally. You can interact with it using a tool like Postman or by making HTTP requests.
+
+    To retrieve a car by ID, use a GET request to /cars/{id} (e.g., /cars/1).
+    To retrieve the list of all cars, use a GET request to /cars (e.g., /cars).
+    To create a new car, use a POST request to /cars with the car details in the request body.
+    To update an existing car, use a PUT request to /cars/{id} with the updated car details in the request body.
+
+Make sure to replace {id} with the desired car's ID when using the endpoints.
+# Testing
+
+To run the automated tests, use the following command:
+
+shell
+
+go test ./... from the project directorory same in which you have the server.go file
+
+# TODOs
+
+    Add more test cases for edge scenarios.
+    Implement more advanced logging and metrics.    
+    Implement API versioning if required in the future.
+    Consider performance improvements for larger datasets.
+
+Feel free to discuss the design and code during the interview.
 Sample Dataset
 
 A sample dataset for reference:
@@ -71,29 +115,3 @@ var Cars = []Car{
     {ID: 2, Make: "Honda", Model: "Civic", Package: "EX", Color: "Red", Year: 2019, Category: "Sedan", Mileage: 12000, Price: 2200000},
     // Add more cars as needed
 }
-
-Running the Application
-
-To run the application, execute the following command:
-
-shell
-
-go run main.go
-
-Testing
-
-To run the automated tests, use the following command:
-
-shell
-
-go test
-
-TODOs
-
-    Add more test cases for edge scenarios.
-    Implement more advanced logging and metrics.
-    Add input validation and error handling.
-    Implement API versioning if required in the future.
-    Consider performance improvements for larger datasets.
-
-Feel free to discuss the design and code during the interview.
