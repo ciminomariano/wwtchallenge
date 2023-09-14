@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Car Management API
+  description: API for managing car information.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /cars:
+    get:
+      summary: Get the list of cars
+      responses:
+        '200':
+          description: List of cars retrieved successfully
+    post:
+      summary: Create a new car
+      requestBody:
+        description: Data of the car to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: Car created successfully
+  /cars/{id}:
+    get:
+      summary: Get a car by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Car retrieved successfully
+        '404':
+          description: Car not found
+    put:
+      summary: Update a car by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated data of the car
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: Car updated successfully
+        '404':
+          description: Car not found
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        color:
+          type: string
+        package:
+          type: string
+        category:
+          type: string
+        mileage:
+          type: integer
+        price:
+          type: number
+      required:
+        - make
+        - model
+        - year
+        - color
+        - package
+        - category
+        - mileage
+        - price
